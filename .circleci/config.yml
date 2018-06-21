@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run: |
+          python3 -m venv venv
+          source ./venv/bin/activate
+          pip install -U pip
+          pip install -U setuptools
+          pip install -U tox
+          tox
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
