@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    ports:
+    - "5432:5432"
+    env_file: .env
+  web:
+    build: .
+    command: python apps/manage.py runserver 0.0.0.0:8080
+    volumes:
+      - .:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
